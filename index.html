@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Safe and Fair Multi-Quadruped Collaborative Box Pushing - Yuhao Li, Williard Joshua Jose, Hao Zhang">
+  <meta name="description" content="Team-level proximity and fairness shaping on top of MAPPO lets two quadrupeds push a box to a target pose without crowding each other or leaving one robot idle.">
+  <meta name="keywords" content="multi-robot systems, multi-agent reinforcement learning, MAPPO, quadruped robots, collaborative manipulation, box pushing, reward shaping, safety, fairness">
+  <meta name="author" content="Yuhao Li, Williard Joshua Jose, Hao Zhang">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
+  <meta property="og:title" content="Safe and Fair Multi-Quadruped Collaborative Box Pushing">
+  <meta property="og:description" content="Team-level proximity and fairness shaping on top of MAPPO lets two quadrupeds push a box to a target pose without crowding each other or leaving one robot idle.">
+  <meta property="og:url" content="https://chkxw.github.io/reward-shaping-box-pushing/">
+  <meta property="og:image" content="https://chkxw.github.io/reward-shaping-box-pushing/static/images/teaser.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Safe and Fair Multi-Quadruped Collaborative Box Pushing - Research Preview">
+  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
+  <meta property="article:author" content="FIRST_AUTHOR_NAME">
+  <meta property="article:section" content="Research">
+  <meta property="article:tag" content="KEYWORD1">
+  <meta property="article:tag" content="KEYWORD2">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
+  <meta name="twitter:title" content="Safe and Fair Multi-Quadruped Collaborative Box Pushing">
+  <meta name="twitter:description" content="Team-level proximity and fairness shaping on top of MAPPO lets two quadrupeds push a box to a target pose without crowding each other or leaving one robot idle.">
+  <meta name="twitter:image" content="https://chkxw.github.io/reward-shaping-box-pushing/static/images/teaser.png">
+  <meta name="twitter:image:alt" content="Safe and Fair Multi-Quadruped Collaborative Box Pushing - Research Preview">
+
+  <!-- Academic/Research Specific -->
+  <meta name="citation_title" content="Safe and Fair Multi-Quadruped Collaborative Box Pushing">
+  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
+  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
+  <meta name="citation_publication_date" content="2024">
+  <meta name="citation_conference_title" content="CONFERENCE_NAME">
+  <meta name="citation_pdf_url" content="https://openreview.net/forum?id=HBHwvM839C">
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://ajax.googleapis.com">
+  <link rel="preconnect" href="https://documentcloud.adobe.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+
+
+  <title>Safe and Fair Multi-Quadruped Collaborative Box Pushing</title>
+  
+  <!-- Favicon and App Icons -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+  
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+  
+  <!-- Fonts - Optimized loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+  
+  <!-- Structured Data for Academic Papers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Safe and Fair Multi-Quadruped Collaborative Box Pushing",
+    "description": "Team-level proximity and fairness shaping on top of MAPPO lets two quadrupeds push a box to a target pose without crowding each other or leaving one robot idle.",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "FIRST_AUTHOR_NAME",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "INSTITUTION_NAME"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "SECOND_AUTHOR_NAME",
+        "affiliation": {
+          "@type": "Organization",
+          "name": "INSTITUTION_NAME"
+        }
+      }
+    ],
+    "datePublished": "2024-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CONFERENCE_OR_JOURNAL_NAME"
+    },
+    "url": "https://chkxw.github.io/reward-shaping-box-pushing/",
+    "image": "https://chkxw.github.io/reward-shaping-box-pushing/static/images/teaser.png",
+    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
+    "abstract": "Multi-quadruped collaborative box pushing requires not only task progress but also safe inter-robot spacing and balanced effort. We augment a task-progress reward with team-level shaping terms for proximity safety and effort fairness, trained under shared-parameter MAPPO with centralized training and decentralized execution, reaching 86%, 68% and 26% success across easy, normal and hard orientation scenarios.",
+    "citation": "Li, Y., Jose, W. J., and Zhang, H. Safe and Fair Multi-Quadruped Collaborative Box Pushing. ICRA 2026 Workshop on Multi-Agent Robotic Systems.",
+    "isAccessibleForFree": true,
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "mainEntity": {
+      "@type": "WebPage",
+      "@id": "https://chkxw.github.io/reward-shaping-box-pushing/"
+    },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "RESEARCH_AREA_1"
+      },
+      {
+        "@type": "Thing", 
+        "name": "RESEARCH_AREA_2"
+      }
+    ]
+  }
+  </script>
+  
+  <!-- Website/Organization Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "INSTITUTION_OR_LAB_NAME",
+    "url": "https://hcr.cs.umass.edu/",
+    "logo": "https://chkxw.github.io/reward-shaping-box-pushing/static/images/favicon.ico",
+    "sameAs": [
+      "https://github.com/chkxw"
+    ]
+  }
+  </script>
+  <style>
+    .results-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .results-table th.num { text-align: right; }
+    .results-table { font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Safe and Fair Multi-Quadruped<br>Collaborative Box Pushing</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Yuhao Li,</span>
+              <span class="author-block">Williard Joshua Jose,</span>
+              <span class="author-block">Hao Zhang</span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Human-Centered Robotics Lab, University of Massachusetts Amherst<br>
+              ICRA 2026 Workshop on Multi-Agent Robotic Systems</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://openreview.net/forum?id=HBHwvM839C" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="static/pdfs/poster.pdf" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-image"></i></span>
+                    <span>Poster</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://openreview.net/forum?id=HBHwvM839C" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-comments"></i></span>
+                    <span>OpenReview</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Teaser -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/teaser.png" alt="Two failure modes on hardware: robots closing to unsafe inter-robot proximity, and one robot idling while the other pushes."/>
+      <h2 class="subtitle has-text-centered">
+        Two failure modes on hardware when only pushing progress is rewarded.
+        <b>Left:</b> both robots converge on the same contact region and close to unsafe inter-robot spacing.
+        <b>Right:</b> role imbalance &mdash; one robot does the pushing while the other stays idle.
+      </h2>
+    </div>
+  </div>
+</section>
+<!-- End teaser -->
+
+<!-- Paper abstract -->
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Multi-quadruped collaborative box pushing requires not only task progress but also safe
+            inter-robot spacing and balanced effort. In our tests, reward formulations that emphasize
+            only task progress lead to unsafe crowding or role imbalance where one robot does most of
+            the pushing. We study this question using a standard MAPPO baseline that augments a
+            task-progress reward with team-level shaping terms for proximity safety and effort
+            fairness. Trained with centralized training and decentralized execution using
+            shared-parameter MAPPO, our policy reaches strong success rates among the evaluated
+            reward variants across easy, normal, and hard orientation scenarios (86%, 68%, 26%) while
+            keeping unsafe proximity low and reducing role imbalance relative to progress-only and
+            fairness-only baselines.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End paper abstract -->
+
+
+<!-- Results table -->
+<section class="section hero">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3 has-text-centered">Results</h2>
+    <p class="has-text-centered">
+      Quantitative comparison of box pushing performance across orientation difficulty bins.
+    </p>
+    <div class="table-container">
+    <table class="table is-fullwidth is-narrow results-table">
+      <thead>
+        <tr>
+          <th>Bin</th><th>Method</th>
+          <th class="num">Success Rate &uarr;</th>
+          <th class="num">Comp. Time (s) &darr;</th>
+          <th class="num">Unsafe Prox. Time % &darr;</th>
+          <th class="num">Single-Robot Time % &darr;</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr><td rowspan="4" style="vertical-align:middle;"><b>Easy<br><small class="has-text-grey">30&ndash;60&deg;, 1&times; diag</small></b></td><td>P+Proximity</td><td class="num">54.0</td><td class="num">5.0</td><td class="num">0.0</td><td class="num">47.1</td></tr>
+      <tr style="background:#f5f5f5;"><td><b>Full-Shaping (ours)</b></td><td class="num">86.0</td><td class="num">1.8</td><td class="num">3.4</td><td class="num">44.5</td></tr>
+      <tr><td>P+Fairness</td><td class="num">72.0</td><td class="num">1.4</td><td class="num">7.5</td><td class="num">47.6</td></tr>
+      <tr><td>Progress-only</td><td class="num">54.0</td><td class="num">1.6</td><td class="num">10.1</td><td class="num">51.8</td></tr>
+      <tr><td rowspan="4" style="vertical-align:middle;"><b>Normal<br><small class="has-text-grey">90&ndash;120&deg;, 2&times;</small></b></td><td>P+Proximity</td><td class="num">32.0</td><td class="num">9.6</td><td class="num">0.1</td><td class="num">51.3</td></tr>
+      <tr style="background:#f5f5f5;"><td><b>Full-Shaping (ours)</b></td><td class="num">68.0</td><td class="num">3.4</td><td class="num">1.1</td><td class="num">25.6</td></tr>
+      <tr><td>P+Fairness</td><td class="num">22.0</td><td class="num">3.6</td><td class="num">26.7</td><td class="num">29.3</td></tr>
+      <tr><td>Progress-only</td><td class="num">64.0</td><td class="num">4.0</td><td class="num">53.7</td><td class="num">49.4</td></tr>
+      <tr><td rowspan="4" style="vertical-align:middle;"><b>Hard<br><small class="has-text-grey">150&ndash;180&deg;, 4&times;</small></b></td><td>P+Proximity</td><td class="num">4.0</td><td class="num">13.2</td><td class="num">4.3</td><td class="num">55.1</td></tr>
+      <tr style="background:#f5f5f5;"><td><b>Full-Shaping (ours)</b></td><td class="num">26.0</td><td class="num">11.3</td><td class="num">18.7</td><td class="num">26.5</td></tr>
+      <tr><td>P+Fairness</td><td class="num">4.0</td><td class="num">12.5</td><td class="num">45.8</td><td class="num">24.4</td></tr>
+      <tr><td>Progress-only</td><td class="num">18.0</td><td class="num">8.2</td><td class="num">54.4</td><td class="num">30.1</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>
+      <b>Why single-objective shaping backfires.</b>
+      Adding <i>only</i> proximity or <i>only</i> fairness shaping degrades success relative to the
+      progress-only baseline in the normal and hard bins. Each single shaping term admits a
+      pathological equilibrium: proximity-only rewards the lazy strategy of disengagement, while
+      fairness-only rewards crowding without spatial awareness. Full shaping keeps both team-level
+      terms active in the return, so reducing the overall loss requires attending to proximity and
+      fairness alongside pushing progress.
+    </p>
+  </div>
+</section>
+<!-- End results table -->
+
+<!-- Image carousel -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item">
+          <img src="static/images/rollouts.png" alt="Representative rollouts comparing full shaping against the progress-only baseline." loading="lazy"/>
+          <h2 class="subtitle has-text-centered">
+            Representative rollouts from the same initial configuration. Top row &mdash; full shaping
+            (carried in the figure under its earlier name, <i>Mixed-Motive</i>): the task completes in
+            3.4&nbsp;s with both robots holding safe spacing. Bottom two rows &mdash; progress-only:
+            the robots crowd the same contact region, violating safe proximity (red borders) and
+            taking 6.0&nbsp;s, nearly twice as long.
+          </h2>
+        </div>
+        <div class="item">
+          <img src="static/images/training.png" alt="Training curves: cumulative return and mean episode length." loading="lazy"/>
+          <h2 class="subtitle has-text-centered">
+            Cumulative return and mean episode length over training for the full-shaping objective.
+            Episode length falls from the truncation horizon &mdash; every episode timing out while the
+            policy is untrained &mdash; toward shorter, successful executions.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End image carousel -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Paper poster -->
+<section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster</h2>
+      <iframe src="static/pdfs/poster.pdf" width="100%" height="550"></iframe>
+    </div>
+  </div>
+</section>
+<!--End paper poster -->
+
+
+
+<!--BibTex citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@inproceedings{li2026safefair,
+  title     = {Safe and Fair Multi-Quadruped Collaborative Box Pushing},
+  author    = {Li, Yuhao and Jose, Williard Joshua and Zhang, Hao},
+  booktitle = {ICRA Workshop on Multi-Agent Robotic Systems:
+               Real-World Collaboration and Interaction},
+  year      = {2026},
+  url       = {https://openreview.net/forum?id=HBHwvM839C}
+}</code></pre>
+    </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
